@@ -1,12 +1,7 @@
 import { useState, useRef } from "react";
 import Div from "./components/Div";
 import "./index.css";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-} from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 
 const App = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -30,45 +25,34 @@ const App = () => {
   return (
     <main>
       <motion.div ref={constraintsRef} style={limits}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            style={{ ...box, x, y }}
-            drag
-            dragConstraints={constraintsRef}
-            onDragEnd={() => {
-              console.log("Final position:", x.get(), y.get());
-            }}
-            key={isVisible ? "visible" : "hidden"}
-            initial={
-              isVisible
-                ? {
-                    opacity: 0,
-                    x: x.get(),
-                    y: y.get(),
-                  }
-                : { x: x.get(), y: y.get() }
-            }
-            animate={
-              isVisible
-                ? {
-                    x: [x.get() - 20, x.get() + 10, x.get()],
-                    opacity: [0, 0.5, 1],
-                    transition: {
-                      duration: 1.25,
-                      times: [0, 0.75, 1],
-                    },
-                  }
-                : {
-                    opacity: [1, 0.85, 0.5, 0],
-                    y: [y.get(), y.get() + 10, y.get() - 50, y.get()],
-                    scale: [0.9, 1, 0.65, 1],
-                    transition: { duration: 1, times: [0, 0.85, 0.95, 1] },
-                  }
-            }
-          >
-            <Div />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          style={{ ...box, x, y }}
+          drag
+          dragConstraints={constraintsRef}
+          dragMomentum={false}
+          whileDrag={{ scale: 0.85, opacity: 0.65, cursor: "grabbing" }}
+          key={isVisible ? "visible" : "hidden"}
+          initial={{ opacity: isVisible ? 1 : 0, x: x.get(), y: y.get() }}
+          animate={
+            isVisible
+              ? {
+                  y: [y.get() - 20, y.get() + 10, y.get()],
+                  opacity: [0, 0.5, 1],
+                  transition: {
+                    duration: 1.25,
+                    times: [0, 0.75, 1],
+                  },
+                }
+              : {
+                  opacity: [1, 0.85, 0.5, 0],
+                  y: [y.get(), y.get() + 10, y.get() - 50, y.get()],
+                  scale: [0.9, 1, 0.65, 1],
+                  transition: { duration: 1, times: [0, 0.85, 0.95, 1] },
+                }
+          }
+        >
+          <Div />
+        </motion.div>
       </motion.div>
 
       <motion.button
@@ -77,7 +61,6 @@ const App = () => {
         whileTap={{ scale: 0.95, rotate: 0.5 }}
         onClick={() => {
           setIsVisible((prev) => !prev);
-          console.log(x.get(), y.get());
         }}
       >
         Show/Hide
