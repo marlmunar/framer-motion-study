@@ -39,11 +39,19 @@ const App = () => {
               console.log("Final position:", x.get(), y.get());
             }}
             key={isVisible ? "visible" : "hidden"}
-            initial={isVisible ? { opacity: 0 } : { y: 0 }}
+            initial={
+              isVisible
+                ? {
+                    opacity: 0,
+                    x: x.get(),
+                    y: y.get(),
+                  }
+                : { x: x.get(), y: y.get() }
+            }
             animate={
               isVisible
                 ? {
-                    x: [-50, 10, 0],
+                    x: [x.get() - 20, x.get() + 10, x.get()],
                     opacity: [0, 0.5, 1],
                     transition: {
                       duration: 1.25,
@@ -51,10 +59,10 @@ const App = () => {
                     },
                   }
                 : {
-                    y: [10, 0, -100],
-                    opacity: [1, 0.85, 0],
-                    scale: [0.9, 1, 0.65],
-                    transition: { duration: 1, times: [0, 0.85, 1] },
+                    opacity: [1, 0.85, 0.5, 0],
+                    y: [y.get(), y.get() + 10, y.get() - 50, y.get()],
+                    scale: [0.9, 1, 0.65, 1],
+                    transition: { duration: 1, times: [0, 0.85, 0.95, 1] },
                   }
             }
           >
