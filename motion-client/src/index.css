@@ -1,0 +1,20 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  padding: 2px;
+  border: 2px solid;
+  width: 10rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+}

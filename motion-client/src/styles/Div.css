@@ -1,0 +1,12 @@
+.animated-div {
+  box-sizing: border-box;
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  width: 10rem;
+  border: 2px solid black;
+  border-radius: 0.75rem;
+  background-color: darkcyan;
+}
